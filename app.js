@@ -2,10 +2,17 @@ const express = require('express');
 var app = express();
 
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const morgan = require('morgan');
 const productRoutes = require('./api/routes/product');
 const orderRoutes = require('./api/routes/orders');
 app.use(morgan('dev'));
+var url = "mongodb://localhost:27017/node-rest-shop";
+mongoose.connect(url, {
+    useNewUrlParser :true,
+    useUnifiedTopology: true
+});
+
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use((req, res, next) =>{
